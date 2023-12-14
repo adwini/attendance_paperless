@@ -35,7 +35,7 @@ class AuthRemoteDatasoure {
           'lastName': registerModel.lastName,
           'email': registerModel.email,
           'createdAt': DateTime.now().toIso8601String(),
-          'updateAt': DateTime.now().toIso8601String()
+          'updatedAt': DateTime.now().toIso8601String()
         });
 
     return unit;
