@@ -16,15 +16,15 @@ import 'package:attendance_practice/features/grocery/presentation/update_titlegr
 import 'package:intl/intl.dart';
 
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key, required this.authUserModel});
+class GroceryTitlePage extends StatefulWidget {
+  const GroceryTitlePage({super.key, required this.authUserModel});
   final AuthUserModel authUserModel;
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<GroceryTitlePage> createState() => _GroceryTitlePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _GroceryTitlePageState extends State<GroceryTitlePage> {
   late TitleGroceryBloc _titleGroceryBloc;
   late AuthBloc _authBloc;
 
@@ -257,7 +257,6 @@ class _HomePageState extends State<HomePage> {
 
   void _logout() {
     _authBloc.add(AuthLogoutEvent());
-   Navigator.pushAndRemoveUntil(context, Mate, (route) => false)
   }
 
   Future _displayAddDialog(BuildContext context) async {

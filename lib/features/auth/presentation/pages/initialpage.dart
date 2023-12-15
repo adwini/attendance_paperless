@@ -3,6 +3,8 @@ import 'package:attendance_practice/core/enum/state_status.enum.dart';
 import 'package:attendance_practice/features/auth/domain/bloc/auth/auth_bloc.dart';
 import 'package:attendance_practice/features/auth/presentation/pages/homepage.dart';
 import 'package:attendance_practice/features/auth/presentation/pages/login.dart';
+import 'package:attendance_practice/features/grocery/domain/grocery_bloc/grocery_bloc.dart';
+import 'package:attendance_practice/features/grocery/domain/title_grocery_bloc/title_grocery_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -59,12 +61,16 @@ class _InitialPageState extends State<InitialPage> {
         MaterialPageRoute(
           builder: (context) => MultiBlocProvider(
               providers: [
+                BlocProvider<TitleGroceryBloc>(
+                  create: (BuildContext context) =>
+                      diContainer.titleGroceryBloc,
+                ),
                 BlocProvider<AuthBloc>(
                     create: (BuildContext context) => diContainer.authBloc),
                 // BlocProvider<TodoBloc>(
                 //     create: (BuildContext context) => diContainer.todoBloc)
               ],
-              child: Home(
+              child: HomePage(
                 authUserModel: state.authUserModel!,
               )),
         ),

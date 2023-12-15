@@ -6,7 +6,7 @@ import 'package:attendance_practice/core/utils/guard.dart';
 import 'package:attendance_practice/features/auth/domain/bloc/auth/auth_bloc.dart';
 import 'package:attendance_practice/features/auth/domain/models/register_model.dart';
 import 'package:attendance_practice/features/auth/presentation/pages/homepage.dart';
-import 'package:attendance_practice/features/auth/presentation/pages/login.dart';
+import 'package:attendance_practice/features/auth/presentation/pages/initialpage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -234,8 +234,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 //   create: (BuildContext context) => diContainer.todoBloc,
                 // ),
               ],
-              child: Home(
-                authUserModel: state.authUserModel!,
+              child: const InitialPage(
+              
               ),
             ),
           ),
