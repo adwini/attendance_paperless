@@ -1,3 +1,4 @@
+import 'package:attendance_practice/core/components/background_home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:attendance_practice/core/constants/color.dart';
@@ -87,124 +88,126 @@ class _ProductPageState extends State<ProductPage> {
                 fontSize: 20, fontWeight: FontWeight.bold, color: textColor),
             title: Text('$title Students'),
           ),
-          body: BlocConsumer<GroceryItemBloc, GroceryItemState>(
-            listener: _groceryListener,
-            builder: (context, groceryState) {
-              if (groceryState.stateStatus == StateStatus.loading) {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-
-              if (groceryState.isEmpty) {
-                return const SizedBox(
-                  child: Center(
-                    child: Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                      child: Text(
-                        'No students to display',
-                        style: TextStyle(fontSize: 15),
-                      ),
-                    ),
-                  ),
-                );
-              }
-              if (groceryState.isDeleted) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Student deleted'),
-                    duration: Duration(seconds: 2),
-                  ),
-                );
-              }
-
-              return ListView.builder(
-                padding: const EdgeInsets.fromLTRB(10.0, 20.0, 10.0, 10.0),
-                itemCount: groceryState.groceryList.length,
-                itemBuilder: (context, index) {
-                  final groceryList = groceryState.groceryList[index];
-                  return Dismissible(
-                    key: UniqueKey(),
-                    direction: DismissDirection.endToStart,
-                    confirmDismiss: (direction) {
-                      return showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            title: const Text('Confirm Delete'),
-                            content: Text(
-                                'Are you sure you want to delete ${groceryList.lastName}?'),
-                            actions: <Widget>[
-                              ElevatedButton(
-                                  onPressed: () {
-                                    _deleteItem(context, groceryList.id);
-                                  },
-                                  child: const Text('Delete')),
-                              ElevatedButton(
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                  },
-                                  child: const Text('Cancel'))
-                            ],
-                          );
-                        },
-                      );
-                    },
-                    background: Container(
-                      color: Colors.red,
-                      child: const Padding(
-                        padding: EdgeInsets.all(15),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [Icon(Icons.delete), Text('Delete')],
-                        ),
-                      ),
-                    ),
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => BlocProvider.value(
-                              value: _groceryBloc,
-                              child: UpdateGroceryItemPage(
-                                groceryItemModel: groceryList,
-                              ),
-                            ),
-                          ),
-                        );
-                      },
+          body: BackgroundHome(
+            child: BlocConsumer<GroceryItemBloc, GroceryItemState>(
+              listener: _groceryListener,
+              builder: (context, groceryState) {
+                if (groceryState.stateStatus == StateStatus.loading) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+            
+                if (groceryState.isEmpty) {
+                  return const SizedBox(
+                    child: Center(
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
-                        child: Card(
-                          child: ListTile(
-                            title: Text(
-                              '${groceryList.firstName} ${groceryList.lastName}',
-                              style: const TextStyle(fontSize: 17),
-                            ),
-                            subtitle: Text(
-                              groceryList.year_level,
-                              style: const TextStyle(fontSize: 15),
-                            ),
-                            // trailing: Text(
-                            //   '₱ ${groceryList.price}',
-                            //   style: const TextStyle(fontSize: 15),
-                            // ),
-                            // trailing: Checkbox(
-                            //     value: groceryList.isChecked,
-                            //     onChanged: (bool? newIsChecked) {
-                            //       _checkListener(
-                            //           context, item.id, newIsChecked ?? false);
-                            //     }),
-                          ),
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                        child: Text(
+                          'No students to display',
+                          style: TextStyle(fontSize: 15),
                         ),
                       ),
                     ),
                   );
-                },
-              );
-            },
+                }
+                if (groceryState.isDeleted) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Student deleted'),
+                      duration: Duration(seconds: 2),
+                    ),
+                  );
+                }
+            
+                return ListView.builder(
+                  padding: const EdgeInsets.fromLTRB(10.0, 20.0, 10.0, 10.0),
+                  itemCount: groceryState.groceryList.length,
+                  itemBuilder: (context, index) {
+                    final groceryList = groceryState.groceryList[index];
+                    return Dismissible(
+                      key: UniqueKey(),
+                      direction: DismissDirection.endToStart,
+                      confirmDismiss: (direction) {
+                        return showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: const Text('Confirm Delete'),
+                              content: Text(
+                                  'Are you sure you want to delete ${groceryList.lastName}?'),
+                              actions: <Widget>[
+                                ElevatedButton(
+                                    onPressed: () {
+                                      _deleteItem(context, groceryList.id);
+                                    },
+                                    child: const Text('Delete')),
+                                ElevatedButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: const Text('Cancel'))
+                              ],
+                            );
+                          },
+                        );
+                      },
+                      background: Container(
+                        color: Colors.red,
+                        child: const Padding(
+                          padding: EdgeInsets.all(15),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [Icon(Icons.delete), Text('Delete')],
+                          ),
+                        ),
+                      ),
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => BlocProvider.value(
+                                value: _groceryBloc,
+                                child: UpdateGroceryItemPage(
+                                  groceryItemModel: groceryList,
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          child: Card(
+                            child: ListTile(
+                              title: Text(
+                                '${groceryList.firstName} ${groceryList.lastName}',
+                                style: const TextStyle(fontSize: 17),
+                              ),
+                              subtitle: Text(
+                                groceryList.year_level,
+                                style: const TextStyle(fontSize: 15),
+                              ),
+                              // trailing: Text(
+                              //   '₱ ${groceryList.price}',
+                              //   style: const TextStyle(fontSize: 15),
+                              // ),
+                              // trailing: Checkbox(
+                              //     value: groceryList.isChecked,
+                              //     onChanged: (bool? newIsChecked) {
+                              //       _checkListener(
+                              //           context, item.id, newIsChecked ?? false);
+                              //     }),
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                );
+              },
+            ),
           ),
           floatingActionButton: FloatingActionButton(
             backgroundColor: primaryColor,

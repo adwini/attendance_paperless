@@ -1,3 +1,4 @@
+import 'package:attendance_practice/core/components/background_home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:attendance_practice/core/constants/color.dart';
@@ -71,78 +72,80 @@ class _UpdateGroceryTitlePageState extends State<UpdateGroceryTitlePage> {
                 child: Icon(Icons.edit_calendar_outlined)),
             title: const Text('Update Subject'),
           ),
-          body: Form(
-            key: _formKey,
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(
-                      right: 15, top: 90, left: 15, bottom: 10),
-                  child: TextFormField(
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                    validator: (val) {
-                      return Guard.againstEmptyString(val, 'Subject');
-                    },
-                    controller: _titleGrocery,
-                    autofocus: true,
-                    decoration: const InputDecoration(
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.horizontal()),
-                        labelText: 'Subject name'),
+          body: BackgroundHome(
+            child: Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        right: 15, top: 90, left: 15, bottom: 10),
+                    child: TextFormField(
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      validator: (val) {
+                        return Guard.againstEmptyString(val, 'Subject');
+                      },
+                      controller: _titleGrocery,
+                      autofocus: true,
+                      decoration: const InputDecoration(
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.horizontal()),
+                          labelText: 'Subject name'),
+                    ),
                   ),
-                ),
-                 Padding(
-                  padding: const EdgeInsets.only(
-                      right: 15, top: 10, left: 15, bottom: 10),
-                  child: TextFormField(
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                    validator: (val) {
-                      return Guard.againstEmptyString(val, 'Subject Code');
-                    },
-                    controller: _subjectCode,
-                    autofocus: true,
-                    decoration: const InputDecoration(
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.horizontal()),
-                        labelText: 'Subject Code'),
+                   Padding(
+                    padding: const EdgeInsets.only(
+                        right: 15, top: 10, left: 15, bottom: 10),
+                    child: TextFormField(
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      validator: (val) {
+                        return Guard.againstEmptyString(val, 'Subject Code');
+                      },
+                      controller: _subjectCode,
+                      autofocus: true,
+                      decoration: const InputDecoration(
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.horizontal()),
+                          labelText: 'Subject Code'),
+                    ),
                   ),
-                ),
-                Center(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 16),
-                        child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: primaryColor,
-                              foregroundColor: textColor,
-                            ),
-                            onPressed: () {
-                              if (_formKey.currentState!.validate()) {
-                                _updateTitleGorcery(context);
-                              }
-                            },
-                            child: const Text('Update')),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 16),
-                        child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: primaryColor,
-                              foregroundColor: textColor,
-                            ),
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            child: const Text('Cancel')),
-                      ),
-                    ],
-                  ),
-                )
-              ],
+                  Center(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 16),
+                          child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: primaryColor,
+                                foregroundColor: textColor,
+                              ),
+                              onPressed: () {
+                                if (_formKey.currentState!.validate()) {
+                                  _updateTitleGorcery(context);
+                                }
+                              },
+                              child: const Text('Update')),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 16),
+                          child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: primaryColor,
+                                foregroundColor: textColor,
+                              ),
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: const Text('Cancel')),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
         );

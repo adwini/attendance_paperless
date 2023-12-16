@@ -4,7 +4,6 @@ import 'package:attendance_practice/core/enum/state_status.enum.dart';
 import 'package:attendance_practice/core/utils/guard.dart';
 import 'package:attendance_practice/features/auth/domain/bloc/auth/auth_bloc.dart';
 import 'package:attendance_practice/features/auth/domain/models/login_model.dart';
-import 'package:attendance_practice/features/auth/presentation/pages/homepage.dart';
 import 'package:attendance_practice/features/auth/presentation/pages/initialpage.dart';
 import 'package:attendance_practice/features/auth/presentation/pages/register.dart';
 import 'package:flutter/material.dart';

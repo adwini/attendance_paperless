@@ -1,3 +1,5 @@
+import 'package:attendance_practice/core/components/background.dart';
+import 'package:attendance_practice/core/components/background_home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:attendance_practice/core/constants/color.dart';
@@ -75,6 +77,7 @@ class _HomePageState extends State<HomePage> {
             }
             return Scaffold(
               appBar: AppBar(
+                automaticallyImplyLeading: false,
                 backgroundColor: primaryColor,
                 titleSpacing: 00.0,
                 centerTitle: true,
@@ -98,141 +101,148 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
              
-              body: Builder(builder: (context) {
-                if (titleGrocertyState.stateStatus == StateStatus.loading) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
-                if (titleGrocertyState.isEmpty) {
-                  return const SizedBox(
-                    child: Center(
-                      child: Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                        child: Text(
-                          'Add Subject',
-                          style: TextStyle(fontSize: 15),
-                        ),
-                      ),
-                    ),
-                  );
-                }
-                if (titleGrocertyState.isDeleted) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Subject deleted'),
-                      duration: Duration(seconds: 2),
-                    ),
-                  );
-                }
-                return ListView.builder(
-                  itemCount: titleGrocertyState.titleGroceryList.length,
-                  itemBuilder: (context, index) {
-                    final titleList =
-                        titleGrocertyState.titleGroceryList[index];
-
-                    //Convert createdAt dateTime from appwrite to DD/MM/YY format
-                    String titleDate = titleList.createdAt!;
-                    String formattedDate = DateFormat('EEE, M/d/y')
-                        .format(DateTime.parse(titleDate));
-
-                    return Dismissible(
-                      key: UniqueKey(),
-                      direction: DismissDirection.endToStart,
-                      confirmDismiss: (direction) {
-                        return showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              title: const Text('Delete Confirmation'),
-                              content: Text(
-                                  'Are you sure you want to delete ${titleList.title}?'),
-                              actions: <Widget>[
-                                ElevatedButton(
-                                    onPressed: () {
-                                      _deleteTitleGrocery(context, titleList.id,
-                                          titleList.title);
-                                    },
-                                    child: const Text('Delete')),
-                                ElevatedButton(
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                    child: const Text('Cancel'))
-                              ],
-                            );
-                          },
-                        );
-                      },
-                      background: Container(
-                        color: Colors.red,
-                        child: const Padding(
-                          padding: EdgeInsets.all(15),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [Icon(Icons.delete), Text('Delete')],
-                          ),
-                        ),
-                      ),
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => MultiBlocProvider(
-                                  providers: [
-                                    BlocProvider<AuthBloc>(
-                                      create: (BuildContext context) =>
-                                          diContainer.authBloc,
-                                    ),
-                                    BlocProvider<TitleGroceryBloc>(
-                                      create: (BuildContext context) =>
-                                          diContainer.titleGroceryBloc,
-                                    ),
-                                    BlocProvider<GroceryItemBloc>(
-                                        create: (BuildContext context) =>
-                                            diContainer.groceryItemBloc)
-                                  ],
-                                  child: ProductPage(
-                                    groceryTitleModel: titleList,
-                                  )),
-                            ),
-                          );
-                        },
+              body: BackgroundHome(
+                child: Builder(builder: (context) {
+                  if (titleGrocertyState.stateStatus == StateStatus.loading) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                  if (titleGrocertyState.isEmpty) {
+                    return const SizedBox(
+                      child: Center(
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                          child: Card(
-                            child: ListTile(
-                              title: Text(titleList.title),
-                              // subtitle: Text(formattedDate),
-                              subtitle: Text(titleList.subjectCode),
-                              trailing: IconButton(
-                                icon: const Icon(
-                                  Icons.edit,
-                                ),
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => BlocProvider.value(
-                                        value: _titleGroceryBloc,
-                                        child: UpdateGroceryTitlePage(
-                                          groceryTitleModel: titleList,
-                                        ),
-                                      ),
-                                    ),
-                                  );
-                                },
-                              ),
-                            ),
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                          child: Text(
+                            'Add Subject',
+                            style: TextStyle(fontSize: 15),
                           ),
                         ),
                       ),
                     );
-                  },
-                );
-              }),
+                  }
+                  if (titleGrocertyState.isDeleted) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Subject deleted'),
+                        duration: Duration(seconds: 2),
+                      ),
+                    );
+                  }
+                  return ListView.builder(
+                    itemCount: titleGrocertyState.titleGroceryList.length,
+                    itemBuilder: (context, index) {
+                      final titleList =
+                          titleGrocertyState.titleGroceryList[index];
+                
+                      //Convert createdAt dateTime from appwrite to DD/MM/YY format
+                      String titleDate = titleList.createdAt!;
+                      String formattedDate = DateFormat('EEE, M/d/y')
+                          .format(DateTime.parse(titleDate));
+                
+                      return Dismissible(
+                        key: UniqueKey(),
+                        direction: DismissDirection.endToStart,
+                        confirmDismiss: (direction) {
+                          return showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: const Text('Delete Confirmation'),
+                                content: Text(
+                                    'Are you sure you want to delete ${titleList.title}?'),
+                                actions: <Widget>[
+                                  ElevatedButton(
+                                      onPressed: () {
+                                        _deleteTitleGrocery(context, titleList.id,
+                                            titleList.title);
+                                      },
+                                      child: const Text('Delete')),
+                                  ElevatedButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: const Text('Cancel'))
+                                ],
+                              );
+                            },
+                          );
+                        },
+                        background: Container(
+                          color: Colors.red,
+                          child: const Padding(
+                            padding: EdgeInsets.all(15),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [Icon(Icons.delete), Text('Delete')],
+                            ),
+                          ),
+                        ),
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => MultiBlocProvider(
+                                    providers: [
+                                      BlocProvider<AuthBloc>(
+                                        create: (BuildContext context) =>
+                                            diContainer.authBloc,
+                                      ),
+                                      BlocProvider<TitleGroceryBloc>(
+                                        create: (BuildContext context) =>
+                                            diContainer.titleGroceryBloc,
+                                      ),
+                                      BlocProvider<GroceryItemBloc>(
+                                          create: (BuildContext context) =>
+                                              diContainer.groceryItemBloc)
+                                    ],
+                                    child: ProductPage(
+                                      groceryTitleModel: titleList,
+                                    )),
+                              ),
+                            );
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: Card(
+                              elevation: 4,
+                              color: Colors.white60,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: ListTile(
+                                title: Text(titleList.title),
+                                // subtitle: Text(formattedDate),
+                                subtitle: Text(titleList.subjectCode),
+                                trailing: IconButton(
+                                  icon: const Icon(
+                                    Icons.edit,
+                                  ),
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => BlocProvider.value(
+                                          value: _titleGroceryBloc,
+                                          child: UpdateGroceryTitlePage(
+                                            groceryTitleModel: titleList,
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                }),
+              ),
               floatingActionButton: FloatingActionButton(
                 backgroundColor: primaryColor,
                 onPressed: () {
@@ -257,7 +267,6 @@ class _HomePageState extends State<HomePage> {
 
   void _logout() {
     _authBloc.add(AuthLogoutEvent());
-   Navigator.pushAndRemoveUntil(context, Mate, (route) => false)
   }
 
   Future _displayAddDialog(BuildContext context) async {

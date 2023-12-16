@@ -1,3 +1,4 @@
+import 'package:attendance_practice/core/components/background_home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:attendance_practice/core/constants/color.dart';
@@ -66,141 +67,143 @@ class _UpdateGroceryItemPageState extends State<UpdateGroceryItemPage> {
         ),
         // title: const Text('Update Grocery Items'),
       ),
-      body: BlocConsumer<GroceryItemBloc, GroceryItemState>(
-        bloc: _groceryItemBloc,
-        listener: _itemListener,
-        builder: (context, state) {
-          if (state.stateStatus == StateStatus.loading) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-          return Form(
-            key: _formKey,
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  const Padding(
-                    padding: EdgeInsets.only(top: 50.0),
-                    child: Center(
-                      child: SizedBox(
-                        width: 10,
-                        height: 60,
-                        // decoration: BoxDecoration(
-                        //     borderRadius: BorderRadius.circular(40),
-                        //     border: Border.all(color: Colors.blueGrey)),
-                        // child: Image.asset('assets/logo.png'),
+      body: BackgroundHome(
+        child: BlocConsumer<GroceryItemBloc, GroceryItemState>(
+          bloc: _groceryItemBloc,
+          listener: _itemListener,
+          builder: (context, state) {
+            if (state.stateStatus == StateStatus.loading) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            return Form(
+              key: _formKey,
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    const Padding(
+                      padding: EdgeInsets.only(top: 50.0),
+                      child: Center(
+                        child: SizedBox(
+                          width: 10,
+                          height: 60,
+                          // decoration: BoxDecoration(
+                          //     borderRadius: BorderRadius.circular(40),
+                          //     border: Border.all(color: Colors.blueGrey)),
+                          // child: Image.asset('assets/logo.png'),
+                        ),
                       ),
                     ),
-                  ),
-                  const Center(
-                    child: Text(
-                      'Update Student Details',
-                      style: TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.w500,
+                    const Center(
+                      child: Text(
+                        'Update Student Details',
+                        style: TextStyle(
+                          fontSize: 30,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10),
-                    child: TextFormField(
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
-                      validator: (val) {
-                        return Guard.againstEmptyString(val, 'First Name');
-                      },
-                      controller: _firstName,
-                      autofocus: true,
-                      decoration: const InputDecoration(
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.horizontal()),
-                          labelText: 'First Name'),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      child: TextFormField(
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        validator: (val) {
+                          return Guard.againstEmptyString(val, 'First Name');
+                        },
+                        controller: _firstName,
+                        autofocus: true,
+                        decoration: const InputDecoration(
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.horizontal()),
+                            labelText: 'First Name'),
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10),
-                    child: TextFormField(
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
-                      validator: (val) {
-                        return Guard.againstEmptyString(val, 'Last Name');
-                      },
-                      controller: _lastName,
-                      autofocus: true,
-                      decoration: const InputDecoration(
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.horizontal()),
-                          labelText: 'Last Name'),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      child: TextFormField(
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        validator: (val) {
+                          return Guard.againstEmptyString(val, 'Last Name');
+                        },
+                        controller: _lastName,
+                        autofocus: true,
+                        decoration: const InputDecoration(
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.horizontal()),
+                            labelText: 'Last Name'),
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10),
-                    child: TextFormField(
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
-                      validator: (val) {
-                        return Guard.againstEmptyString(val, 'Course');
-                      },
-                      controller: _course,
-                      autofocus: true,
-                      decoration: const InputDecoration(
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.horizontal()),
-                          labelText: 'Course'),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      child: TextFormField(
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        validator: (val) {
+                          return Guard.againstEmptyString(val, 'Course');
+                        },
+                        controller: _course,
+                        autofocus: true,
+                        decoration: const InputDecoration(
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.horizontal()),
+                            labelText: 'Course'),
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10),
-                    child: TextFormField(
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
-                      validator: (val) {
-                        return Guard.againstEmptyString(val, 'Year Level');
-                      },
-                      controller: _yrLvl,
-                      autofocus: true,
-                      decoration: const InputDecoration(
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.horizontal()),
-                          labelText: 'Year Level'),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      child: TextFormField(
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        validator: (val) {
+                          return Guard.againstEmptyString(val, 'Year Level');
+                        },
+                        controller: _yrLvl,
+                        autofocus: true,
+                        decoration: const InputDecoration(
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.horizontal()),
+                            labelText: 'Year Level'),
+                      ),
                     ),
-                  ),
-                  Center(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 10, vertical: 16),
-                          child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                  backgroundColor: primaryColor,
-                                  foregroundColor: textColor),
-                              onPressed: () {
-                                if (_formKey.currentState!.validate()) {
+                    Center(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 16),
+                            child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor: primaryColor,
+                                    foregroundColor: textColor),
+                                onPressed: () {
+                                  if (_formKey.currentState!.validate()) {
+                                    _updateItem(context);
+                                  }
+                                },
+                                child: const Text('Update')),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 16),
+                            child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor: primaryColor,
+                                    foregroundColor: textColor),
+                                onPressed: () {
                                   _updateItem(context);
-                                }
-                              },
-                              child: const Text('Update')),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 10, vertical: 16),
-                          child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                  backgroundColor: primaryColor,
-                                  foregroundColor: textColor),
-                              onPressed: () {
-                                _updateItem(context);
-                                Navigator.pop(context);
-                              },
-                              child: const Text('Cancel')),
-                        ),
-                      ],
-                    ),
-                  )
-                ],
+                                  Navigator.pop(context);
+                                },
+                                child: const Text('Cancel')),
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
               ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }
