@@ -241,7 +241,7 @@ class _GroceryTitlePageState extends State<GroceryTitlePage> {
                 onPressed: () {
                   _displayAddDialog(context);
                 },
-                child: const Icon(Icons.add),
+                child: const Icon(Icons.add, color: Colors.white,),
               ),
             );
           },

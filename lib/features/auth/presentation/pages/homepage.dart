@@ -1,5 +1,6 @@
 import 'package:attendance_practice/core/components/background.dart';
 import 'package:attendance_practice/core/components/background_home.dart';
+import 'package:attendance_practice/features/auth/presentation/pages/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:attendance_practice/core/constants/color.dart';
@@ -16,7 +17,6 @@ import 'package:attendance_practice/features/grocery/domain/title_grocery_bloc/t
 import 'package:attendance_practice/features/grocery/presentation/grocery_item.dart';
 import 'package:attendance_practice/features/grocery/presentation/update_titlegrocery.dart';
 import 'package:intl/intl.dart';
-
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key, required this.authUserModel});
@@ -38,7 +38,7 @@ class _HomePageState extends State<HomePage> {
   final GlobalKey<FormState> _formKey = GlobalKey();
 
   final TextEditingController _titleGrocery = TextEditingController();
-    final TextEditingController _subjectCode = TextEditingController();
+  final TextEditingController _subjectCode = TextEditingController();
 
   @override
   void initState() {
@@ -100,7 +100,6 @@ class _HomePageState extends State<HomePage> {
                       icon: const Icon(Icons.logout, color: Colors.black))
                 ],
               ),
-             
               body: BackgroundHome(
                 child: Builder(builder: (context) {
                   if (titleGrocertyState.stateStatus == StateStatus.loading) {
@@ -109,15 +108,19 @@ class _HomePageState extends State<HomePage> {
                     );
                   }
                   if (titleGrocertyState.isEmpty) {
-                    return const SizedBox(
+                    return SizedBox(
                       child: Center(
                         child: Padding(
-                          padding:
-                              EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                          child: Text(
-                            'Add Subject',
-                            style: TextStyle(fontSize: 15),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 10),
+                          child: Image.asset(
+                            "assets/images/emptyOrange.png",
+                            
                           ),
+                          // child: Text(
+                          //   'Add Subject',
+                          //   style: TextStyle(fontSize: 15),
+                          // ),
                         ),
                       ),
                     );
@@ -135,12 +138,12 @@ class _HomePageState extends State<HomePage> {
                     itemBuilder: (context, index) {
                       final titleList =
                           titleGrocertyState.titleGroceryList[index];
-                
+
                       //Convert createdAt dateTime from appwrite to DD/MM/YY format
                       String titleDate = titleList.createdAt!;
                       String formattedDate = DateFormat('EEE, M/d/y')
                           .format(DateTime.parse(titleDate));
-                
+
                       return Dismissible(
                         key: UniqueKey(),
                         direction: DismissDirection.endToStart,
@@ -155,8 +158,8 @@ class _HomePageState extends State<HomePage> {
                                 actions: <Widget>[
                                   ElevatedButton(
                                       onPressed: () {
-                                        _deleteTitleGrocery(context, titleList.id,
-                                            titleList.title);
+                                        _deleteTitleGrocery(context,
+                                            titleList.id, titleList.title);
                                       },
                                       child: const Text('Delete')),
                                   ElevatedButton(
@@ -224,7 +227,8 @@ class _HomePageState extends State<HomePage> {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => BlocProvider.value(
+                                        builder: (context) =>
+                                            BlocProvider.value(
                                           value: _titleGroceryBloc,
                                           child: UpdateGroceryTitlePage(
                                             groceryTitleModel: titleList,
@@ -244,11 +248,11 @@ class _HomePageState extends State<HomePage> {
                 }),
               ),
               floatingActionButton: FloatingActionButton(
-                backgroundColor: primaryColor,
+                backgroundColor: const Color.fromARGB(255, 255, 136, 34),
                 onPressed: () {
                   _displayAddDialog(context);
                 },
-                child: const Icon(Icons.add),
+                child: const Icon(Icons.add, color: Colors.blue,),
               ),
             );
           },
@@ -267,6 +271,15 @@ class _HomePageState extends State<HomePage> {
 
   void _logout() {
     _authBloc.add(AuthLogoutEvent());
+    Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+            builder: (context) => MultiBlocProvider(providers: [
+                  BlocProvider<AuthBloc>(
+                    create: (BuildContext context) => diContainer.authBloc,
+                  ),
+                ], child: const LoginScreen())),
+        ModalRoute.withName('/'));
   }
 
   Future _displayAddDialog(BuildContext context) async {
@@ -292,7 +305,7 @@ class _HomePageState extends State<HomePage> {
                             borderRadius: BorderRadius.horizontal()),
                         labelText: 'Subject Title'),
                   ),
-                   TextFormField(
+                  TextFormField(
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     validator: (val) {
                       return Guard.againstEmptyString(val, 'Subject Code');

@@ -97,16 +97,15 @@ class _ProductPageState extends State<ProductPage> {
                     child: CircularProgressIndicator(),
                   );
                 }
-            
+
                 if (groceryState.isEmpty) {
-                  return const SizedBox(
+                  return SizedBox(
                     child: Center(
                       child: Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                        child: Text(
-                          'No students to display',
-                          style: TextStyle(fontSize: 15),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 10),
+                        child: Image.asset(
+                          "assets/images/emptyOrange.png",
                         ),
                       ),
                     ),
@@ -120,7 +119,7 @@ class _ProductPageState extends State<ProductPage> {
                     ),
                   );
                 }
-            
+
                 return ListView.builder(
                   padding: const EdgeInsets.fromLTRB(10.0, 20.0, 10.0, 10.0),
                   itemCount: groceryState.groceryList.length,
@@ -214,7 +213,7 @@ class _ProductPageState extends State<ProductPage> {
             onPressed: () {
               _displayAddDialog(context);
             },
-            child: const Icon(Icons.add),
+            child: const Icon(Icons.add, color: Colors.white,),
           ),
         );
       },

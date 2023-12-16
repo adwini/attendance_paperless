@@ -77,7 +77,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       });
     });
 
-    on<AuthLogoutEvent>((event, emit) async {
+     on<AuthLogoutEvent>((event, emit) async {
       emit(state.copyWith(stateStatus: StateStatus.loading));
       final Either<String, Unit> result = await authRepository.logout();
 
