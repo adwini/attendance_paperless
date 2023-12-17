@@ -1,4 +1,3 @@
-import 'package:attendance_practice/core/components/background.dart';
 import 'package:attendance_practice/core/components/background_home.dart';
 import 'package:attendance_practice/features/auth/presentation/pages/login.dart';
 import 'package:flutter/material.dart';
@@ -115,7 +114,6 @@ class _HomePageState extends State<HomePage> {
                               horizontal: 10, vertical: 10),
                           child: Image.asset(
                             "assets/images/emptyOrange.png",
-                            
                           ),
                           // child: Text(
                           //   'Add Subject',
@@ -211,14 +209,24 @@ class _HomePageState extends State<HomePage> {
                             padding: const EdgeInsets.symmetric(horizontal: 10),
                             child: Card(
                               elevation: 4,
-                              color: Colors.white60,
+                              // color: Colors.white60,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20),
                               ),
                               child: ListTile(
-                                title: Text(titleList.title),
+                                leading: Text(
+                                  titleList.subjectCode,
+                                  textAlign: TextAlign.center,
+                                  style: const TextStyle(fontSize:17.0),
+                                ),
+                                title: Text(
+                                  style: const TextStyle(fontSize: 25),
+                                  titleList.title,
+                                  textAlign: TextAlign.center,
+                                ),
+
                                 // subtitle: Text(formattedDate),
-                                subtitle: Text(titleList.subjectCode),
+                               
                                 trailing: IconButton(
                                   icon: const Icon(
                                     Icons.edit,
@@ -252,7 +260,10 @@ class _HomePageState extends State<HomePage> {
                 onPressed: () {
                   _displayAddDialog(context);
                 },
-                child: const Icon(Icons.add, color: Colors.blue,),
+                child: const Icon(
+                  Icons.add,
+                  color: Colors.blue,
+                ),
               ),
             );
           },
@@ -294,6 +305,7 @@ class _HomePageState extends State<HomePage> {
               content: Column(
                 children: [
                   TextFormField(
+                   
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     validator: (val) {
                       return Guard.againstEmptyString(val, 'Subject Title');
@@ -301,11 +313,12 @@ class _HomePageState extends State<HomePage> {
                     controller: _titleGrocery,
                     autofocus: true,
                     decoration: const InputDecoration(
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.horizontal()),
+                        hintText: "Enter your subject name",
                         labelText: 'Subject Title'),
                   ),
+
                   TextFormField(
+                    textCapitalization: TextCapitalization.characters,
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     validator: (val) {
                       return Guard.againstEmptyString(val, 'Subject Code');
@@ -313,8 +326,7 @@ class _HomePageState extends State<HomePage> {
                     controller: _subjectCode,
                     autofocus: true,
                     decoration: const InputDecoration(
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.horizontal()),
+                      hintText: "Enter your subject code",
                         labelText: 'Subject Code'),
                   ),
                 ],
@@ -370,4 +382,6 @@ class _HomePageState extends State<HomePage> {
 
     Navigator.of(context).pop();
   }
+
 }
+

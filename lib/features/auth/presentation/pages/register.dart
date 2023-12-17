@@ -126,6 +126,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       alignment: Alignment.center,
                       margin: const EdgeInsets.symmetric(horizontal: 40),
                       child: TextFormField(
+                        obscureText: true,
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         controller: _passwordController,
                         decoration: const InputDecoration(
@@ -143,6 +144,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       alignment: Alignment.center,
                       margin: const EdgeInsets.symmetric(horizontal: 40),
                       child: TextFormField(
+                        obscureText: true,
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         controller: _confirmController,
                         decoration: const InputDecoration(

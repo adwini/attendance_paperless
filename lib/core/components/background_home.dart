@@ -4,9 +4,9 @@ class BackgroundHome extends StatelessWidget {
   final Widget child;
 
   const BackgroundHome({
-    Key? key,
+    super.key,
     required this.child,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

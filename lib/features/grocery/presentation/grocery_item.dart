@@ -257,8 +257,7 @@ class _ProductPageState extends State<ProductPage> {
                     controller: _firstName,
                     autofocus: true,
                     decoration: const InputDecoration(
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.horizontal()),
+                      
                         labelText: 'First Name'),
                   ),
                 ),
@@ -272,8 +271,7 @@ class _ProductPageState extends State<ProductPage> {
                     controller: _lastName,
                     autofocus: true,
                     decoration: const InputDecoration(
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.horizontal()),
+                        
                         labelText: 'Last Name'),
                   ),
                 ),
@@ -287,8 +285,7 @@ class _ProductPageState extends State<ProductPage> {
                     controller: _course,
                     autofocus: true,
                     decoration: const InputDecoration(
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.horizontal()),
+                       
                         labelText: 'Course'),
                   ),
                 ),
@@ -302,8 +299,7 @@ class _ProductPageState extends State<ProductPage> {
                     controller: _yrLvl,
                     autofocus: true,
                     decoration: const InputDecoration(
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.horizontal()),
+                       
                         labelText: 'Year Level'),
                   ),
                 ),
